@@ -4,7 +4,7 @@
 
 var mins = 2;
 var hours = 0;
-var days  = 0;
+var days = 0;
 var weeks = 0;
 var msg = "";
 
@@ -34,7 +34,6 @@ function getCurrentTabUrl(callback) {
     // See https://developer.chrome.com/extensions/tabs#type-Tab
     var url = tab.url;
 
-
     // tab.url is only available if the "activeTab" permission is declared.
     // If you want to see the URL of other tabs (e.g. after removing active:true
     // from |queryInfo|), then the "tabs" permission is required to see their
@@ -54,9 +53,6 @@ function getCurrentTabUrl(callback) {
   // alert(url); // Shows "undefined", because chrome.tabs.query is async.
 }
 
-
-
-
 document.addEventListener('DOMContentLoaded', function() {
   getCurrentTabUrl(function(url) {
     $("#url").val(url);
@@ -64,59 +60,52 @@ document.addEventListener('DOMContentLoaded', function() {
     $("#minnum").text(mins);
     $("#hournum").text(hours);
     $("#daynum").text(days);
-      
+
   });
 });
 
+$("#tabbutton").click(function() {
 
-
-$("#tabbutton").click(function () {
-
-getCurrentTabUrl(function(url) {
-    var time = mins + 60*hours + 60*24*days + 60*24*7*weeks;
+  getCurrentTabUrl(function(url) {
+    var time = mins + 60 * hours + 60 * 24 * days + 60 * 24 * 7 * weeks;
     var newtab = {
-     delayInMinutes: time, 
-     periodInMinutes: null,
-     };
+      delayInMinutes: time,
+      periodInMinutes: null
+    };
 
     chrome.alarms.create(url + "+++" + msg, newtab);
-  $("#success").css("display","block");
-  $("#url").val("");
-  $("#minutes").val("");
-  $("#message").val("");
+    $("#success").css("display", "block");
+    $("#url").val("");
+    $("#minutes").val("");
+    $("#message").val("");
 
-   });
+  });
 });
-                      
+
 $("#addmins").click(function() {
-    mins += 1;
-   $("#minnum").text(mins);
+  mins += 1;
+  $("#minnum").text(mins);
 });
 
 $("#deletmins").click(function() {
-    mins -= 1;
-   $("#minnum").text(mins);
+  mins -= 1;
+  $("#minnum").text(mins);
 });
-
 
 $("#addhours").click(function() {
-    hours += 1;
-   $("#hournum").text(hours);
+  hours += 1;
+  $("#hournum").text(hours);
 });
 $("#delethours").click(function() {
-    hours -= 1;
-   $("#hournum").text(hours);
+  hours -= 1;
+  $("#hournum").text(hours);
 });
-
 
 $("#adddays").click(function() {
-    days += 1;
-   $("#daynum").text(days);
+  days += 1;
+  $("#daynum").text(days);
 });
 $("#deletdays").click(function() {
-    days -= 1;
-   $("#hournum").text(days);
+  days -= 1;
+  $("#hournum").text(days);
 });
-
-
-
